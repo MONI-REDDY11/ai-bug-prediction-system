@@ -1,10 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Bug Prediction</title>
+    <title>AI Bug Prediction System</title>
 </head>
 <body>
     <h1>AI Bug Prediction System</h1>
-    <p>Application is working successfully.</p>
+
+    <form method="POST" action="/predict">
+        <label>Lines of Code:</label>
+        <input type="number" name="lines_of_code" required>
+        <br><br>
+
+        <label>Complexity:</label>
+        <input type="number" name="complexity" required>
+        <br><br>
+
+        <button type="submit">Predict</button>
+    </form>
 </body>
 </html>
