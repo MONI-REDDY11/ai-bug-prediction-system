@@ -2,20 +2,23 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    lines_of_code = request.form.get("lines_of_code")
-    complexity = request.form.get("complexity")
+    lines_of_code = request.form.get("lines_of_code", "").strip()
+    complexity = request.form.get("complexity", "").strip()
 
     if not lines_of_code or not complexity:
         return render_template("index.html", prediction="Please enter both values")
 
-    lines_of_code = int(lines_of_code)
-    complexity = int(complexity)
+    try:
+        lines_of_code = int(lines_of_code)
+        complexity = int(complexity)
+    except ValueError:
+        return render_template("index.html", prediction="Enter valid numbers only")
 
     if lines_of_code > 500 or complexity > 10:
         prediction = "High Bug Risk"
